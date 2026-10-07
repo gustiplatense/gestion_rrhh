@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- ================================================================
+		 FICHADA V2: camara primero, PIN ante la minima duda,
+		 boton Aceptar tras fichada correcta, filtro por empresa.
+	================================================================ -->
+	<template id="kiosk_attendance_page_v2" name="Face Attendance Kiosk V2">
+		<t t-call="higia_attendance_face_v2.kiosk_layout_v2">
+			<t t-set="page_title">Digitalo Consulting - Control Horario V2</t>
+			<t t-set="page_mode">attendance</t>
+			<div id="higia-attendance-app" class="higia-kiosk-page" data-mode="attendance"
+				 t-att-data-company-id="company_id or ''">
+
+				<!-- Camara (pantalla inicial) -->
+				<div id="screen-camera" class="higia-screen">
+					<div class="higia-kiosk-box">
+						<div class="higia-brand">
+							<img class="higia-brand-logo" style="width:116px;max-width:116px;height:auto;" src="/higia_attendance_face_v2/static/src/images/logo.png" alt="Digitalo"/>
+							<div class="higia-brand-title">Control Horario V2</div>
+						</div>
+						<h2>Mira a la camara</h2>
+						<button id="sound-enable-btn" class="higia-sound-btn" type="button">Activar sonido</button>
+						<button id="pwa-install-btn" class="higia-sound-btn" type="button" style="display:none">Instalar app</button>
+						<div class="higia-video-wrapper">
+							<video id="att-video" class="higia-video" autoplay="1" muted="1" playsinline="1"></video>
+							<canvas id="att-canvas" class="higia-overlay"></canvas>
+						</div>
+						<p class="higia-status-msg" id="camera-status">Cargando...</p>
+					</div>
+				</div>
+
+				<!-- PIN (ante la minima duda) -->
+				<div id="screen-pin" class="higia-screen" style="display:none">
+					<div class="higia-kiosk-box">
+						<h2>Confirma tu identidad</h2>
+						<p class="text-muted">Se requiere verificacion adicional. Ingresa tu PIN.</p>
+						<div class="higia-pin-display" id="pin-display">----</div>
+						<div class="higia-numpad">
+							<button class="higia-num-btn" data-digit="1">1</button>
+							<button class="higia-num-btn" data-digit="2">2</button>
+							<button class="higia-num-btn" data-digit="3">3</button>
+							<button class="higia-num-btn" data-digit="4">4</button>
+							<button class="higia-num-btn" data-digit="5">5</button>
+							<button class="higia-num-btn" data-digit="6">6</button>
+							<button class="higia-num-btn" data-digit="7">7</button>
+							<button class="higia-num-btn" data-digit="8">8</button>
+							<button class="higia-num-btn" data-digit="9">9</button>
+							<button class="higia-num-btn higia-btn-clear" data-digit="clear">C</button>
+							<button class="higia-num-btn" data-digit="0">0</button>
+							<button class="higia-num-btn higia-btn-ok" data-digit="ok">OK</button>
+						</div>
+						<p class="higia-error-msg" id="pin-error"></p>
+						<button id="att-cancel-pin-btn" class="higia-btn-secondary mt-2">Cancelar</button>
+					</div>
+				</div>
+
+				<!-- Resultado (boton Aceptar obligatorio tras fichada OK) -->
+				<div id="screen-result" class="higia-screen" style="display:none">
+					<div class="higia-kiosk-box">
+						<div id="result-icon" class="higia-result-icon"></div>
+						<h2 id="result-title"></h2>
+						<p id="result-msg"></p>
+						<button id="result-accept-btn" class="higia-btn-primary higia-btn-accept" type="button" style="display:none">Aceptar</button>
+					</div>
+				</div>
+
+			</div>
+		</t>
+	</template>
+
+	<!-- ================================================================
+		 ENROLAMIENTO V2: solo por token, guiado con 3 fotos
+	================================================================ -->
+	<template id="kiosk_enroll_page_v2" name="Face Enrollment Kiosk V2">
+		<t t-call="higia_attendance_face_v2.kiosk_layout_v2">
+			<t t-set="page_title">Digitalo - Enrolamiento Facial V2</t>
+			<div id="higia-enroll-app" class="higia-kiosk-page higia-enroll" data-mode="enroll"
+				 t-att-data-token="enroll_token or ''"
+				 t-att-data-employee-id="employee_id or ''"
+				 t-att-data-employee-name="employee_name or ''">
+
+				<!-- Error de token -->
+				<t t-if="token_error">
+					<div class="higia-screen">
+						<div class="higia-kiosk-box">
+							<div class="higia-result-icon higia-fail">ERR</div>
+							<h2>Link invalido</h2>
+							<p t-esc="token_error"/>
+							<p class="text-muted">Solicita un nuevo link a tu supervisor.</p>
+						</div>
+					</div>
+				</t>
+				<t t-else="">
+
+					<!-- Confirmar empleado e instrucciones -->
+					<div id="screen-confirm" class="higia-screen">
+						<div class="higia-kiosk-box">
+							<div class="higia-brand">
+								<img class="higia-brand-logo" style="width:116px;max-width:116px;height:auto;" src="/higia_attendance_face_v2/static/src/images/logo.png" alt="Digitalo"/>
+								<div class="higia-brand-title">Enrolamiento Facial V2</div>
+							</div>
+							<h2>Hola, <span id="confirm-title"><t t-esc="employee_name or ''"/></span></h2>
+							<p id="confirm-status">
+								<t t-if="already_enrolled">Ya tenes rostro enrolado. Se reemplazara.</t>
+								<t t-else="">Aun no tenes rostro enrolado.</t>
+							</p>
+							<div class="higia-enroll-instructions">
+								<p><b>Vamos a tomar 3 fotos de tu rostro.</b></p>
+								<ul>
+									<li>Busca un lugar con buena luz (evita el contraluz).</li>
+									<li>Quitate lentes oscuros, gorra o barbijo.</li>
+									<li>Acerca el rostro para que ocupe buena parte de la pantalla.</li>
+									<li>Segui las indicaciones en cada foto.</li>
+								</ul>
+							</div>
+							<button id="capture-btn" class="higia-btn-primary">Comenzar (3 fotos)</button>
+						</div>
+					</div>
+
+					<!-- Captura guiada -->
+					<div id="screen-capture" class="higia-screen" style="display:none">
+						<div class="higia-kiosk-box">
+							<h2 id="capture-step-title">Foto 1 de 3</h2>
+							<p class="higia-capture-instruction" id="capture-instruction">Mira de frente a la camara</p>
+							<div class="higia-video-wrapper">
+								<video id="enroll-video" class="higia-video" autoplay="1" muted="1" playsinline="1"></video>
+								<canvas id="enroll-canvas" class="higia-overlay"></canvas>
+							</div>
+							<div class="higia-enroll-progress">
+								<span id="step-dot-1" class="higia-step-dot"></span>
+								<span id="step-dot-2" class="higia-step-dot"></span>
+								<span id="step-dot-3" class="higia-step-dot"></span>
+							</div>
+							<p class="higia-status-msg" id="enroll-status">Buscando rostro...</p>
+							<button id="enroll-cancel-btn" class="higia-btn-secondary">Cancelar</button>
+						</div>
+					</div>
+
+					<!-- Resultado -->
+					<div id="screen-enroll-result" class="higia-screen" style="display:none">
+						<div class="higia-kiosk-box">
+							<div id="enroll-result-icon" class="higia-result-icon"></div>
+							<h2 id="enroll-result-title"></h2>
+							<p id="enroll-result-msg"></p>
+							<button id="enroll-retry-btn" class="higia-btn-primary" style="display:none">Reintentar</button>
+						</div>
+					</div>
+
+				</t>
+			</div>
+		</t>
+	</template>
+
+	<!-- Layout compartido V2 -->
+	<template id="kiosk_layout_v2" name="Kiosk Layout V2">
+		<html lang="es">
+			<head>
+				<meta charset="utf-8"/>
+				<meta name="viewport" content="width=device-width, initial-scale=1"/>
+				<meta name="theme-color" content="#0f172a"/>
+				<meta name="mobile-web-app-capable" content="yes"/>
+				<meta name="apple-mobile-web-app-capable" content="yes"/>
+				<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+				<meta name="apple-mobile-web-app-title" content="Control Horario V2"/>
+				<meta name="application-name" content="Control Horario V2"/>
+				<title><t t-esc="page_title"/></title>
+				<t t-if="page_mode == 'attendance'">
+					<link rel="manifest" t-att-href="'/face-attendance-v2/manifest.webmanifest' + ('?company_id=%s' % company_id if company_id else '')"/>
+					<link rel="apple-touch-icon" href="/higia_attendance_face_v2/static/src/images/pwa-192.png"/>
+				</t>
+				<link rel="stylesheet" t-att-href="'/higia_attendance_face_v2/static/src/css/kiosk_face_v2.css'"/>
+			</head>
+			<body class="higia-kiosk-body">
+				<t t-out="0"/>
+				<script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js" crossorigin="anonymous"></script>
+				<script t-att-src="'/higia_attendance_face_v2/static/src/js/kiosk_face_v2.js?v=face-v2-3'"></script>
+				<t t-if="page_mode == 'attendance'">
+					<script>
+						if ('serviceWorker' in navigator) {
+							window.addEventListener('load', function () {
+								navigator.serviceWorker.register('/face-attendance-v2/service-worker.js', { scope: '/face-attendance-v2' }).catch(function () {});
+							});
+						}
+					</script>
+				</t>
+			</body>
+		</html>
+	</template>
+
+</odoo>

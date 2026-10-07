@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- Categoría del módulo para agrupar los grupos de seguridad -->
+	<record id="module_category_gestion_horas" model="ir.module.category">
+		<field name="name">Gestion de Horas</field>
+		<field name="description">Permisos de la web app portal de gestion de asistencias</field>
+		<field name="sequence">30</field>
+	</record>
+
+	<!-- Grupo que habilita a un usuario (portal o interno) a usar /gestionhoras.
+		 Los usuarios con este grupo verán a los empleados según el criterio
+		 elegido en la app: dependientes del gerente (parent_id), empleados de
+		 los que es aprobador de asistencias (attendance_manager_id) o
+		 empleados del mismo sector (department_id). -->
+	<record id="group_gestion_horas_manager" model="res.groups">
+		<field name="name">Gerente Portal - Gestion de Horas</field>
+		<field name="comment">Permite acceder a la web app /gestionhoras para aprobar/rechazar horas extras, cargar novedades y gestionar fichadas de los empleados a cargo.</field>
+	</record>
+	
+</odoo>

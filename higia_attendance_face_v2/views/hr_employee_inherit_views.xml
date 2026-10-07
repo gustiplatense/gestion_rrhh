@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="hr_employee_face_v2_form_inherit" model="ir.ui.view">
+		<field name="name">hr.employee.face.v2.form.inherit</field>
+		<field name="model">hr.employee</field>
+		<field name="inherit_id" ref="hr.view_employee_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//notebook" position="inside">
+				<page string="Face Recognition V2" name="face_recognition_v2">
+					<group string="Datos faciales V2">
+						<field name="face_enrolled_v2" readonly="1"/>
+					</group>
+					<div class="mt-3 d-flex gap-2">
+						<button name="action_send_enroll_link_whatsapp_v2"
+								type="object"
+								string="Enviar link de enrolamiento V2 (WhatsApp)"
+								class="btn btn-primary"/>
+						<button name="action_send_attendance_link_whatsapp_v2"
+								type="object"
+								string="Enviar link de fichada V2 (WhatsApp)"
+								class="btn btn-secondary"/>
+						<button name="action_clear_face_v2"
+								type="object"
+								string="Borrar datos faciales V2"
+								class="btn btn-warning"
+								invisible="not face_enrolled_v2"
+								confirm="Borrar los descriptores faciales V2 de este empleado?"/>
+					</div>
+					<div class="mt-3 d-flex gap-2">
+						<button name="action_import_face_from_v1"
+								type="object"
+								string="Importar enrolamiento de V1 (1 foto)"
+								class="btn btn-outline-secondary"
+								invisible="face_enrolled_v2"
+								confirm="Importar el rostro enrolado en la version 1? El empleado quedara enrolado en V2 con una sola foto (menos preciso que el enrolamiento de 3 fotos)."/>
+					</div>
+					<div class="mt-3 text-muted" invisible="face_enrolled_v2">
+						<i>Sin rostro enrolado en V2. Envia el link de enrolamiento (3 fotos).</i>
+					</div>
+				</page>
+			</xpath>
+		</field>
+	</record>
+</odoo>

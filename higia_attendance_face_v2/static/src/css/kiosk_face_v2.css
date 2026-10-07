@@ -1,0 +1,181 @@
+/* HIGIA Face Attendance V2 - Kiosk styles */
+
+* { box-sizing: border-box; }
+
+.higia-kiosk-body {
+    margin: 0;
+    min-height: 100vh;
+    background: #0f172a;
+    color: #e2e8f0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.higia-kiosk-page { width: 100%; max-width: 520px; padding: 12px; }
+.higia-screen { width: 100%; }
+
+.higia-kiosk-box {
+    background: #1e293b;
+    border-radius: 16px;
+    padding: 24px 20px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+.higia-kiosk-box h2 { margin: 8px 0 12px; font-size: 1.4rem; color: #f8fafc; }
+.text-muted { color: #94a3b8; }
+
+.higia-brand { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-bottom: 8px; }
+.higia-brand-title { font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; color: #38bdf8; }
+
+/* Video */
+.higia-video-wrapper {
+    position: relative;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 12px 0;
+    background: #000;
+}
+.higia-video { width: 100%; display: block; transform: scaleX(-1); }
+.higia-overlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+/* Mensajes de estado */
+.higia-status-msg { min-height: 2.4em; font-size: 1rem; margin: 8px 0; white-space: pre-line; }
+.higia-msg-info    { color: #93c5fd; }
+.higia-msg-success { color: #4ade80; }
+.higia-msg-warning { color: #facc15; }
+.higia-msg-error   { color: #f87171; }
+.higia-error-msg   { color: #f87171; min-height: 1.4em; margin: 8px 0 0; }
+
+/* Botones */
+.higia-btn-primary, .higia-btn-secondary, .higia-sound-btn {
+    display: inline-block;
+    border: none;
+    border-radius: 10px;
+    padding: 14px 32px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+}
+.higia-btn-primary   { background: #0ea5e9; color: #fff; }
+.higia-btn-primary:active { background: #0284c7; }
+.higia-btn-secondary { background: #334155; color: #e2e8f0; }
+.higia-btn-secondary:active { background: #475569; }
+
+.higia-btn-accept {
+    background: #22c55e;
+    font-size: 1.3rem;
+    padding: 18px 56px;
+    margin-top: 18px;
+}
+.higia-btn-accept:active { background: #16a34a; }
+
+.higia-sound-btn {
+    background: transparent;
+    border: 1px solid #475569;
+    color: #94a3b8;
+    padding: 6px 16px;
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+}
+.higia-sound-btn-active { border-color: #22c55e; color: #4ade80; }
+
+/* Numpad PIN */
+.higia-pin-display {
+    font-size: 2rem;
+    letter-spacing: 12px;
+    background: #0f172a;
+    border-radius: 10px;
+    padding: 12px;
+    margin: 12px auto;
+    max-width: 260px;
+    color: #f8fafc;
+}
+.higia-numpad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    max-width: 300px;
+    margin: 0 auto;
+}
+.higia-num-btn {
+    border: none;
+    border-radius: 10px;
+    background: #334155;
+    color: #f8fafc;
+    font-size: 1.5rem;
+    padding: 16px 0;
+    cursor: pointer;
+}
+.higia-num-btn:active { background: #475569; }
+.higia-btn-clear { background: #7f1d1d; }
+.higia-btn-ok    { background: #14532d; }
+
+/* Resultado */
+.higia-result-icon {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    font-size: 1.6rem;
+    font-weight: 800;
+}
+.higia-ok   { background: #14532d; color: #4ade80; }
+.higia-fail { background: #7f1d1d; color: #f87171; }
+.higia-result-title-ok    { color: #4ade80; }
+.higia-result-title-error { color: #f87171; }
+.higia-result-msg-ok      { color: #bbf7d0; font-size: 1.1rem; }
+.higia-result-msg-error   { color: #fecaca; white-space: pre-line; }
+.higia-suspended-icon { font-size: 2.4rem; }
+
+/* Enrolamiento V2 */
+.higia-enroll-instructions {
+    text-align: left;
+    background: #0f172a;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-size: 0.95rem;
+    color: #cbd5e1;
+}
+.higia-enroll-instructions ul { margin: 8px 0 0; padding-left: 20px; }
+.higia-enroll-instructions li { margin-bottom: 4px; }
+
+.higia-capture-instruction {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #38bdf8;
+    min-height: 2.2em;
+    margin: 4px 0;
+}
+
+.higia-enroll-progress {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 8px 0;
+}
+.higia-step-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #334155;
+    transition: background 0.3s;
+}
+.higia-step-dot-active { background: #38bdf8; }
+.higia-step-dot-done   { background: #22c55e; }
+
+.mt-2 { margin-top: 8px; }
+.mt-3 { margin-top: 12px; }
+
+@media (max-width: 420px) {
+    .higia-kiosk-box { padding: 18px 12px; }
+    .higia-kiosk-box h2 { font-size: 1.2rem; }
+}

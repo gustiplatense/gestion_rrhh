@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- ================================================================
+		 Layout standalone (sin assets backend, patrón kiosk del repo)
+	================================================================ -->
+	<template id="gestion_horas_layout" name="Gestión de Horas Layout">
+		<t t-name="gestion_horas_layout">
+			<html>
+				<head>
+					<meta charset="utf-8"/>
+					<meta name="viewport" content="width=device-width, initial-scale=1"/>
+					<title><t t-esc="page_title or 'Gestión de Horas'"/></title>
+					<link rel="stylesheet" t-attf-href="/higia_gestion_horas/static/src/css/gestion_horas.css?v={{ asset_v or '1' }}"/>
+				</head>
+				<body>
+					<t t-out="0"/>
+				</body>
+			</html>
+		</t>
+	</template>
+
+	<!-- ================================================================
+		 Página principal de la web app
+	================================================================ -->
+	<template id="gestion_horas_page" name="Gestión de Horas - App">
+		<t t-call="higia_gestion_horas.gestion_horas_layout">
+			<t t-set="page_title">Gestión de Horas</t>
+			<div id="gh-app" class="gh-page">
+
+				<header class="gh-header">
+					<div class="gh-header-title">
+						<h1>Gestión de Horas</h1>
+						<span class="gh-user" t-esc="user_name"/>
+					</div>
+					<div class="gh-header-controls">
+						<label class="gh-date-label" for="gh-mode">Empleados</label>
+						<select id="gh-mode" class="gh-mode-select" title="Criterio de selección de empleados">
+							<option value="manager" selected="selected">Dependen del gerente</option>
+							<option value="attendance">Aprobador de asistencias</option>
+							<option value="department">Mismo sector</option>
+							<option value="work_location">Misma ubicación de trabajo</option>
+						</select>
+						<label class="gh-date-label" for="gh-date">Fecha de proceso</label>
+						<input type="date" id="gh-date" class="gh-date-input"/>
+						<button id="gh-refresh" class="gh-btn gh-btn-light" type="button" title="Actualizar">&#8635;</button>
+						<a href="/web/session/logout?redirect=/gestionhoras" class="gh-btn gh-btn-light" title="Cerrar sesión">Salir</a>
+					</div>
+				</header>
+
+				<div id="gh-alert" class="gh-alert" style="display:none"></div>
+
+				<main class="gh-main">
+					<div id="gh-loading" class="gh-loading">Cargando...</div>
+					<div id="gh-list" class="gh-list" style="display:none"></div>
+					<div id="gh-empty" class="gh-empty" style="display:none">
+						No se encontraron empleados para el criterio seleccionado.
+					</div>
+				</main>
+
+				<!-- Modal para crear/modificar fichada -->
+				<div id="gh-modal" class="gh-modal-backdrop" style="display:none">
+					<div class="gh-modal">
+						<h2 id="gh-modal-title">Fichada</h2>
+						<p id="gh-modal-employee" class="gh-modal-sub"></p>
+						<div class="gh-modal-body">
+							<div class="gh-field">
+								<label for="gh-modal-checkin">Entrada</label>
+								<input type="time" id="gh-modal-checkin"/>
+							</div>
+							<div class="gh-field">
+								<label for="gh-modal-checkout">Salida</label>
+								<input type="time" id="gh-modal-checkout"/>
+							</div>
+						</div>
+						<div class="gh-modal-footer">
+							<button id="gh-modal-delete" class="gh-btn gh-btn-danger" type="button" style="display:none">Eliminar</button>
+							<span class="gh-modal-spacer"></span>
+							<button id="gh-modal-cancel" class="gh-btn gh-btn-light" type="button">Cancelar</button>
+							<button id="gh-modal-save" class="gh-btn gh-btn-primary" type="button">Guardar</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<script t-attf-src="/higia_gestion_horas/static/src/js/gestion_horas.js?v={{ asset_v or '1' }}"></script>
+		</t>
+	</template>
+
+	<!-- ================================================================
+		 Página de acceso denegado
+	================================================================ -->
+	<template id="no_access_page" name="Gestión de Horas - Sin acceso">
+		<t t-call="higia_gestion_horas.gestion_horas_layout">
+			<t t-set="asset_v" t-value="'1'"/>
+			<t t-set="page_title">Sin acceso</t>
+			<div class="gh-page gh-noaccess">
+				<div class="gh-noaccess-box">
+					<h1>Acceso restringido</h1>
+					<p>Su usuario no tiene permisos para usar Gestión de Horas.</p>
+					<p>Solicite al administrador que lo agregue al grupo
+						<strong>"Gerente Portal - Gestión de Horas"</strong>.</p>
+					<a href="/web/session/logout?redirect=/gestionhoras" class="gh-btn gh-btn-primary">
+						Ingresar con otro usuario
+					</a>
+				</div>
+			</div>
+		</t>
+	</template>
+
+</odoo>

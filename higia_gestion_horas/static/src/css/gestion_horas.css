@@ -1,0 +1,355 @@
+/* Gestión de Horas - estilos de la web app portal */
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.gh-page {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 12px;
+}
+
+/* ------------------------------ Header ------------------------------ */
+
+.gh-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: #0f172a;
+    color: #fff;
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+}
+
+.gh-header-title h1 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.gh-user {
+    font-size: 0.8rem;
+    opacity: 0.75;
+}
+
+.gh-header-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.gh-date-label {
+    font-size: 0.8rem;
+    opacity: 0.85;
+}
+
+.gh-date-input {
+    border: none;
+    border-radius: 8px;
+    padding: 7px 10px;
+    font-size: 0.95rem;
+}
+
+.gh-mode-select {
+    border: none;
+    border-radius: 8px;
+    padding: 7px 10px;
+    font-size: 0.9rem;
+    background: #fff;
+    color: #0f172a;
+    cursor: pointer;
+}
+
+/* ------------------------------ Botones ------------------------------ */
+
+.gh-btn {
+    display: inline-block;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: filter 0.15s;
+}
+
+.gh-btn:hover { filter: brightness(0.92); }
+
+.gh-btn-sm { padding: 5px 10px; font-size: 0.8rem; }
+
+.gh-btn-primary { background: #2563eb; color: #fff; }
+.gh-btn-success { background: #16a34a; color: #fff; }
+.gh-btn-danger  { background: #dc2626; color: #fff; }
+.gh-btn-light   { background: #e2e8f0; color: #0f172a; }
+
+/* ------------------------------ Alertas ------------------------------ */
+
+.gh-alert {
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.gh-alert-ok    { background: #dcfce7; color: #14532d; }
+.gh-alert-error { background: #fee2e2; color: #7f1d1d; }
+
+.gh-loading, .gh-empty {
+    text-align: center;
+    color: #64748b;
+    padding: 40px 0;
+    font-size: 0.95rem;
+}
+
+/* ------------------------------ Tarjetas ------------------------------ */
+
+.gh-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+    padding: 14px 16px;
+    margin-bottom: 12px;
+}
+
+.gh-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.gh-emp { display: flex; flex-direction: column; }
+
+.gh-emp-name { font-weight: 700; font-size: 1rem; }
+
+.gh-emp-job { font-size: 0.78rem; color: #64748b; }
+
+/* ------------------------------ Fichadas ------------------------------ */
+
+.gh-att {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    border-top: 1px solid #f1f5f9;
+    padding: 10px 0;
+}
+
+.gh-att-none {
+    color: #94a3b8;
+    font-size: 0.88rem;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.gh-att-times {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-variant-numeric: tabular-nums;
+}
+
+.gh-att-time { font-size: 0.95rem; font-weight: 600; }
+
+.gh-att-worked {
+    font-size: 0.85rem;
+    color: #475569;
+    background: #f1f5f9;
+    border-radius: 6px;
+    padding: 3px 8px;
+}
+
+.gh-att-note {
+    grid-column: 1 / -1;
+    font-size: 0.8rem;
+    color: #92400e;
+    background: #fef3c7;
+    border-radius: 6px;
+    padding: 4px 8px;
+    margin-top: 4px;
+}
+
+.gh-att-overtime {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.gh-att-overtime label { font-size: 0.8rem; color: #64748b; }
+
+.gh-ot-input {
+    width: 74px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 6px 8px;
+    font-size: 0.9rem;
+    text-align: right;
+}
+
+.gh-att-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ------------------------------ Badges ------------------------------ */
+
+.gh-badge {
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.gh-badge-warning { background: #fef3c7; color: #92400e; }
+.gh-badge-success { background: #dcfce7; color: #166534; }
+.gh-badge-danger  { background: #fee2e2; color: #991b1b; }
+
+/* ------------------------------ Novedades ------------------------------ */
+
+.gh-leaves {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 10px;
+    margin-top: 4px;
+}
+
+.gh-leave-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #ede9fe;
+    color: #5b21b6;
+    border-radius: 999px;
+    padding: 4px 6px 4px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.gh-leave-del {
+    border: none;
+    background: rgba(91, 33, 182, 0.15);
+    color: #5b21b6;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    line-height: 1;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.gh-leave-select {
+    border: 1px dashed #cbd5e1;
+    border-radius: 8px;
+    background: #fff;
+    color: #475569;
+    padding: 5px 8px;
+    font-size: 0.82rem;
+    cursor: pointer;
+}
+
+/* ------------------------------ Modal ------------------------------ */
+
+.gh-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 16px;
+}
+
+.gh-modal {
+    background: #fff;
+    border-radius: 14px;
+    width: 100%;
+    max-width: 420px;
+    padding: 20px 22px;
+    box-shadow: 0 10px 40px rgba(15, 23, 42, 0.25);
+}
+
+.gh-modal h2 { margin: 0 0 4px; font-size: 1.1rem; }
+
+.gh-modal-sub { margin: 0 0 14px; color: #64748b; font-size: 0.85rem; }
+
+.gh-modal-body {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.gh-field { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+
+.gh-field label { font-size: 0.8rem; color: #475569; font-weight: 600; }
+
+.gh-field input {
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.gh-modal-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.gh-modal-spacer { flex: 1; }
+
+/* ------------------------------ Sin acceso ------------------------------ */
+
+.gh-noaccess {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gh-noaccess-box {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.1);
+    padding: 32px;
+    max-width: 420px;
+    text-align: center;
+}
+
+.gh-noaccess-box h1 { font-size: 1.3rem; margin-top: 0; }
+
+.gh-noaccess-box p { color: #475569; font-size: 0.92rem; }
+
+/* ------------------------------ Responsive ------------------------------ */
+
+@media (max-width: 640px) {
+    .gh-header { padding: 12px; }
+    .gh-header-controls { width: 100%; justify-content: space-between; }
+    .gh-att { flex-direction: column; align-items: flex-start; }
+    .gh-att-actions { width: 100%; justify-content: flex-start; flex-wrap: wrap; }
+    .gh-card-head { flex-wrap: wrap; }
+}
